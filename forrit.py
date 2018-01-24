@@ -17,18 +17,18 @@ def lidurA():
 @route('/lidura/<n>')
 def tala(n):
     return '''
-           <h4>Þú valdir ''',n,'''!</h4> 
+           <h4>Þú valdir '''+ n +'''!</h4> 
            <h3><a href="/">Á heimasíðu</a></h3>
            '''
 
 @route('/lidurb')
 def lidurB():
     return '''
-           <h2>Hvaða Counter-Strike: Global Offensive?</h2>
+           <h2>Hvaða Counter-Strike: Global Offensive lið er besta liðið?</h2>
            <a href="/lidurb/result?mynd=g2"><img src="/static/g2_logo.svg" width="200"></a>
            <a href="/lidurb/result?mynd=faze"><img src="/static/faze_logo.svg" width="200"></a>
            <a href="/lidurb/result?mynd=c9"><img src="/static/c9_logo.svg" width="200"></a>
-           <a href="/lidurb/result?mynd=mouse"><img src="/static/ms_logo.svg" width="200"></a>
+           <a href="/lidurb/result?mynd=ms"><img src="/static/ms_logo.svg" width="200"></a>
            <a href="/lidurb/result?mynd=nip"><img src="/static/nip_logo.svg" width="200"><br></a>
            <a href="/lidurb/result?mynd=vp"><img src="/static/vp_logo.svg" width="200"></a>
            <a href="/lidurb/result?mynd=astralis"><img src="/static/astralis_logo.svg" width="200"></a>
@@ -68,4 +68,7 @@ def error404(error):
            <h3><a href="/">Á heimasíðu</a></h3>
            '''
 
-run()
+if os.environ.get('APP_LOCATION') == 'heroku':
+    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+else:
+    run(host='localhost', port=8080, debug=True)
